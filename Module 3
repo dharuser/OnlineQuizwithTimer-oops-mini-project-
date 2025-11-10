@@ -1,0 +1,29 @@
+// Generic Quiz Manager and Timer Thread
+class GenericQuizManager<T extends User> {
+    private List<T> users = new ArrayList<>();
+
+    public void registerUser(T user) {
+        users.add(user);
+    }
+}
+
+class QuizTimer extends Thread {
+    private int seconds;
+
+    public QuizTimer(int seconds) {
+        this.seconds = seconds;
+    }
+
+    public void run() {
+        try {
+            while (seconds > 0) {
+                System.out.println("Time left: " + seconds + "s");
+                Thread.sleep(1000);
+                seconds--;
+            }
+            System.out.println("Time’s up!");
+        } catch (InterruptedException e) {
+            System.out.println("Timer interrupted!");
+        }
+    }
+}
