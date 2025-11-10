@@ -1,0 +1,27 @@
+// Simple Client-Server + JDBC Integration
+class QuizServer {
+    public static void main(String[] args) throws Exception {
+        ServerSocket server = new ServerSocket(5000);
+        System.out.println("Server ready...");
+        Socket client = server.accept();
+        PrintWriter out = new PrintWriter(client.getOutputStream(), true);
+        out.println("Welcome to the Quiz!");
+    }
+}
+
+class DatabaseManager {
+    private static final String URL = "jdbc:mysql://localhost:3306/quizdb";
+    private static final String USER = "root";
+    private static final String PASS = "password";
+
+    public static void saveResult(String username, int score) {
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASS);
+             PreparedStatement ps = conn.prepareStatement("INSERT INTO results VALUES (?, ?)")) {
+            ps.setString(1, username);
+            ps.setInt(2, score);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
