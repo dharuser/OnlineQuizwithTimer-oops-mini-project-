@@ -1,0 +1,30 @@
+// Simple Swing GUI (MVC)
+import javax.swing.*;
+import java.awt.*;
+
+class QuizView extends JFrame {
+    JLabel questionLabel;
+    JButton[] optionButtons;
+    JLabel timerLabel;
+
+    public QuizView() {
+        setTitle("Online Quiz");
+        setLayout(new BorderLayout());
+        questionLabel = new JLabel("Question");
+        add(questionLabel, BorderLayout.NORTH);
+
+        JPanel optionsPanel = new JPanel(new GridLayout(4, 1));
+        optionButtons = new JButton[4];
+        for (int i = 0; i < 4; i++) {
+            optionButtons[i] = new JButton("Option " + (i + 1));
+            optionsPanel.add(optionButtons[i]);
+        }
+        add(optionsPanel, BorderLayout.CENTER);
+
+        timerLabel = new JLabel("Time left: 60s");
+        add(timerLabel, BorderLayout.SOUTH);
+
+        setSize(400, 300);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+}
