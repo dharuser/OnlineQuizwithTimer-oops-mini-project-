@@ -1,0 +1,50 @@
+// Abstract class and OOP basics
+abstract class Question {
+    protected String questionText;
+    protected String[] options;
+    protected int correctAnswer;
+
+    public Question(String questionText, String[] options, int correctAnswer) {
+        this.questionText = questionText;
+        this.options = options;
+        this.correctAnswer = correctAnswer;
+    }
+
+    public abstract boolean checkAnswer(int answer);
+}
+
+class MCQQuestion extends Question {
+    public MCQQuestion(String q, String[] opts, int ans) {
+        super(q, opts, ans);
+    }
+
+    @Override
+    public boolean checkAnswer(int answer) {
+        return answer == correctAnswer;
+    }
+}
+
+class User {
+    private String username;
+    private int score;
+
+    public User(String username) {
+        this.username = username;
+    }
+
+    public void updateScore(int points) {
+        this.score += points;
+    }
+}
+
+class Quiz {
+    private List<Question> questions = new ArrayList<>();
+
+    public void addQuestion(Question q) {
+        questions.add(q);
+    }
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
+}
