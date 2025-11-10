@@ -1,0 +1,30 @@
+public class OnlineQuizApp {
+    public static void main(String[] args) {
+        // Load Questions (Module 2)
+        List<Question> questions = null;
+        try {
+            questions = FileLoader.loadQuestions("questions.txt");
+        } catch (QuizFileNotFoundException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+
+        // Create User (Module 1)
+        User user = new User("Alice");
+        Quiz quiz = new Quiz();
+        questions.forEach(quiz::addQuestion);
+
+        // Timer (Module 3)
+        QuizTimer timer = new QuizTimer(60);
+        timer.start();
+
+        // GUI (Module 5)
+        SwingUtilities.invokeLater(() -> {
+            QuizView view = new QuizView();
+            view.setVisible(true);
+        });
+
+        // Database Save (Module 4 - simulated)
+        DatabaseManager.saveResult(user.toString(), 80);
+    }
+}
